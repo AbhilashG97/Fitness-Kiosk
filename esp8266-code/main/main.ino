@@ -6,6 +6,8 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiManager.h>
 #include "Nextion.h"
+#include "HX711.h"
+#include <math.h>
 
 
 String pub_key = "pub-c-54e366aa-65db-4bb2-b37e-cb201811b62c";
@@ -337,24 +339,23 @@ void loop ()
     }
   }
 
-  
-  
   delay(1000);  // 1 second interval between each new round
 
 }
 
-// Get all data
+// Get all user data
 
 //Get heart beat 
-int get_heart_stuff() 
+int get_heart_beat() 
 {
-  int c, a, f = 0;
+  int c, a = 0;
+  boolean f;
   int t = millis();
   while (millis()-t<15000) 
   {
     yield();
     a = digitalRead(D2);
-    if(a==HIGH && f=false) 
+    if(a==HIGH && f==false) 
     {
         c =c+1;
         f = true;
@@ -373,17 +374,57 @@ int get_heart_stuff()
   return c;
 }
 
-// Get height - It requires duration for the time when
-// the sonar was active
+// Get height - returns the height of the user
 float get_height() 
 {
-  int distance = 0;
-  distance =  getDuration()*0.034/2;
+  double distance;
+  long duration;
+  
+  // Clears the trigPin
+  digitalWrite(D4, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(D4, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(D4, LOW);
+  
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(D3, HIGH);
+  
+  distance =  duration*0.034/2;
+  
   Serial.print("Height: ");
   distance = 197 - distance;
   Serial.println(distance);
   delay(2000);
   return distance;
+}
+
+// Get Weigth - returns the weight of the usre
+float get_weight() 
+{
+  HX711 scale(D8, D7);
+  float reading;
+  if(scale.is_ready()) 
+  {
+    reading = scale.read();
+    reading = (reading * (-0.035274))/1580;
+    Serial.print("HX711 reading: ");
+    Serial.println(reading);
+  } 
+  else 
+  {
+    reading = 0.0;
+    Serial.println("HX711 not found");
+  }
+  return reading;     
+} 
+
+// Get BMI - returns the BMI of the person standing on the Kisosk
+float get_BMI() 
+{
+    float BMI = get_weight()/pow(get_height(), 2);
+    return BMI;
 }
 
 // HMI Code
