@@ -5,6 +5,7 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiManager.h>
+#include "Nextion.h"
 
 
 String pub_key = "pub-c-54e366aa-65db-4bb2-b37e-cb201811b62c";
@@ -197,7 +198,7 @@ String parse_ (String input)
 }
 
 
-String command (chann* channel, String callback)
+String command(chann* channel, String callback)
 {
   String instruction = subscribe_request(channel, callback);
   Serial.println(instruction);
@@ -341,3 +342,82 @@ void loop ()
   delay(1000);  // 1 second interval between each new round
 
 }
+
+// Get all data
+
+//Get heart beat 
+int get_heart_stuff() 
+{
+  int c, a, f = 0;
+  int t = millis();
+  while (millis()-t<15000) 
+  {
+    yield();
+    a = digitalRead(D2);
+    if(a==HIGH && f=false) 
+    {
+        c =c+1;
+        f = true;
+    }
+    if(a==LOW) 
+    {
+     yield();
+     f = false;
+    }
+    yield();
+  }  
+  Serial.print("BPM:");
+  yield();
+  c = c * 4;
+  Serial.println(c);
+  return c;
+}
+
+// Get height - It requires duration for the time when
+// the sonar was active
+float get_height() 
+{
+  int distance = 0;
+  distance =  getDuration()*0.034/2;
+  Serial.print("Height: ");
+  distance = 197 - distance;
+  Serial.println(distance);
+  delay(2000);
+  return distance;
+}
+
+// HMI Code
+
+//page 0
+NexButton measure = NexButton(0, 1, "b0");
+
+//page 1
+NexText BMI = NexText(1, 1, "t0"); 
+NexText HR = NexText(1, 2, "t1"); 
+NexButton h1 = NexButton(1, 3, "b0");
+
+//page 2
+NexButton h2 = NexButton(2, 1, "b0");
+NexButton b1 = NexButton(2, 2, "b1");
+NexNumber ht = NexNumber(2, 4, "n0");
+NexNumber wt = NexNumber(2, 6, "n1");
+NexNumber bmi = NexNumber(2, 8, "n2");
+
+
+//page 3
+NexButton h3 = NexButton(3, 1, "b0");
+NexButton b2 = NexButton(3, 2, "b1");
+NexNumber hr = NexNumber(3, 4, "n0");
+
+// Register a button object to the touch event list.  
+NexTouch *nex_listen_list[] = {
+  &measure,
+  &BMI,
+  &HR,
+  &h1,
+  &h2,
+  &b1,
+  &h3,
+  &b2,
+  NULL
+};
