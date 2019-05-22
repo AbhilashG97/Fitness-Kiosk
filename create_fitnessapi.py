@@ -37,13 +37,13 @@ def all_data():
     connect.row_factory = dict_factory
     cursor = connect.cursor()
     data = cursor.execute('''
-    SELECT * FROM exercise INNER JOIN BMI ON exercise.bmi_id=BMI.id;
+    SELECT * FROM BMI,exercise, nutriplan , fooditem WHERE BMI.id=exercise.bmi_id AND BMI.id=nutriplan.b_id AND nutri_id=fooditem.n_id;
     ''').fetchall()
 
     return jsonify(data)
 
 # This function fetches data based on the filter provided by the user
-@app.route('/v1/resources/fruits', methods=['GET'])
+@app.route('/v1/resources/fruits/bmi', methods=['GET'])
 def filterd_data():
     query_parameters = request.args
 
@@ -52,7 +52,7 @@ def filterd_data():
     lower = query_parameters.get('lower')
     upper = query_parameters.get('upper')
 
-    query = 'SELECT * FROM exercise WHERE'
+    query = 'SELECT * FROM BMI,exercise, nutriplan , fooditem WHERE BMI.id=exercise.bmi_id AND BMI.id=nutriplan.b_id AND nutri_id=fooditem.n_id AND'
     filters = []
 
     if name:
