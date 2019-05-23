@@ -76,17 +76,16 @@ void setup() {
 void loop ()
 {
   counter++;
-  client.add("height", 185);
+  client.add("height", 172);
   client.add("weight", 89);
   client.add("bmi", 25);
   client.add("heart_beat", 79);
-  client.add("counter", counter);
   client.sendAll(true);
   Serial.println(counter);
   
   //nexLoop(nex_listen_list);
   
-  delay(5000);  // 5 second interval between each new round
+  delay(1000);  // 1 second interval between each new round
 }
 
 // Get all user data
