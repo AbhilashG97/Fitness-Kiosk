@@ -1,3 +1,4 @@
+
 #include <ESP8266WiFi.h>
 
 //needed for library
@@ -69,21 +70,21 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
   
-  //nexInit();
-  //measure.attachPop(start, &measure);
+  nexInit();
+  measure.attachPop(start, &measure);
 }
 
 void loop ()
 {
   counter++;
-  client.add("height", 172);
-  client.add("weight", 89);
-  client.add("bmi", 25);
-  client.add("heart_beat", 79);
+  client.add("height", get_height());
+  client.add("weight", get_weight());
+  client.add("bmi", get_BMI());
+  client.add("heart_beat", get_heart_beat());
   client.sendAll(true);
   Serial.println(counter);
   
-  //nexLoop(nex_listen_list);
+  nexLoop(nex_listen_list);
   
   delay(1000);  // 1 second interval between each new round
 }
@@ -106,6 +107,7 @@ int get_heart_beat()
         c =c+1;
         f = true;
     }
+    
     if(a==LOW) 
     {
      yield();
@@ -147,7 +149,7 @@ float get_height()
   return distance;
 }
 
-// Get Weigth - returns the weight of the usre
+// Get Weigth - returns the weight of the user
 float get_weight() 
 {
   Serial.println("Weight Calculation");
