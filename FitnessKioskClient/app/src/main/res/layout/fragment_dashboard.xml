@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.DashboardFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cd_weight"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_weight_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                    android:text="Weight"
+                    tools:layout_editor_absoluteX="75dp"
+                    tools:layout_editor_absoluteY="106dp" />
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteX="81dp"
+                    tools:layout_editor_absoluteY="45dp"
+                    tools:text="100 KG" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cd_height"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_height_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                    android:text="Height" />
+
+                <TextView
+                    android:id="@+id/tv_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                    tools:text="175 CM" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cd_heartbeat"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_heart_beat_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                    android:text="Heart Beat" />
+
+                <TextView
+                    android:id="@+id/tv_heart_beat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                    tools:text="75 beats per minute" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cd_bmi"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_bmi_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                    android:text="BMI" />
+
+                <TextView
+                    android:id="@+id/tv_bmi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                    tools:text="26" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</FrameLayout>
