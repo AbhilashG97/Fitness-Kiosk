@@ -9,7 +9,7 @@ def create_connection():
         print(Error)
 
 def create_bmi_table(connection):
-    print("A")
+    '''This function creates a BMI Table'''
     cursor_obj = connection.cursor()
     cursor_obj.execute('''
         CREATE TABLE BMI(
@@ -19,11 +19,10 @@ def create_bmi_table(connection):
             upper real
         )
     ''')
-    print("B")
     connection.commit()
 
 def create_nutri_table(connection):
-    print("C")
+    '''This function creates the Nutrition Plan Table'''
     cursor_obj = connection.cursor()
     cursor_obj.execute('''
         CREATE TABLE nutriplan(
@@ -32,12 +31,11 @@ def create_nutri_table(connection):
             FOREIGN KEY(b_id) REFERENCES BMI(id)
         )
     ''')
-    print("D")
     connection.commit()
 
 def create_exercise_table(connection):
+    '''This function creates the Exercise Table'''
     cursor_obj = connection.cursor()
-    print("E")
     cursor_obj.execute('''
         CREATE TABLE exercise(
             exercise_id text PRIMARY KEY,           
@@ -46,11 +44,10 @@ def create_exercise_table(connection):
             FOREIGN KEY(bmi_id) REFERENCES BMI(id)
         )
     ''')
-    print("F")
     connection.commit()
 
 def create_food_table(connection):
-    print("G")
+    '''This function creates the Food Item Table'''
     cursor_obj = connection.cursor()
     cursor_obj.execute('''
         CREATE TABLE fooditem(
@@ -62,11 +59,10 @@ def create_food_table(connection):
             FOREIGN KEY(n_id) REFERENCES nutriplan(nutri_id)
         )
     ''')
-    print("H")
     connection.commit()
 
 def insert_values(connection):
-    print("I")
+    '''This function inserts values into all the tables'''
     cursor_object = connection.cursor()
     cursor_object.execute('''
         INSERT INTO BMI values 
@@ -93,14 +89,12 @@ def insert_values(connection):
         ("E15", "Knee High", 3),
         ("E16", "Moderate Intensity Walking", 3)
     ''')
-    print("J")
     cursor_object.execute('''
         INSERT INTO nutriplan values 
         ("N1",1),
         ("N2",2),
         ("N3",3)
     ''')
-    print("K")
     cursor_object.execute('''
         INSERT INTO fooditem values 
         ("F1", "Whole Grain","Whole Wheat, Oats, Brown Rice" ,0,"N3"),
@@ -134,7 +128,6 @@ def insert_values(connection):
         ("F29","Eggs"," ",0,"N2"),
         ("F30","Fish"," ",0,"N2")
     ''')
-    print("L")
     connection.commit()
 
 connection = create_connection()
